@@ -1,0 +1,39 @@
+1. Interface Verification Commands
+  - show ip interface brief and show ipv6 interface brief: These display a summary for all interfaces including the IPv4 or IPv6 address of the interface and current operational status.
+﻿  - show running-config interface interface-id: This displays the commands applied to the specified interface.
+﻿﻿  - show ip route and show ipv6 route: These display the contents of the IPv4 or IPv6 routing table stored in RAM. 
+    In Cisco IOS 15, active interfaces should appear in the routing table with two related entries identified by the code ‘C’ (Connected) or ‘L’ (Local). 
+    In previous IOS versions, only a single entry with the code ‘C’ will appear.
+
+2. Verify Interface Status
+  R1# show ip interface brief
+  R1# show ipv6 interface brief
+
+3. Verify IPv6 Link Local and Multicast Addresses
+  R1# show ipv6 interface gigabitethernet 0/0/0
+
+4. Verify Interface Configuration
+  R1# show running-config interface gigabitethernet 0/0/0
+  R1# show interfaces
+
+5. Verify Routes
+  R1# show ip route
+  R1# show ipv6 route
+  R1# ping [ipv6_address]
+
+6. Filter Show Command Output
+  - section: R1# show running-config | section line vty
+  - include: R1# show ip interface brief
+             R1# show ip interface brief | include up
+  - exclude: R1# show ip interface brief
+             R1# show ip interface brief | exclude unassigned
+  - begin: R1# show ip route | begin Gateway
+
+7. Command History Feature
+  R1# terminal history size 200
+  R1# show history
+
+8. Command to delete ipv6 address
+  R2# config t
+  R2(config)# int g0/0/1
+  R2(config-if)# no ipv6 address 2001:db8:c0de:14::1/64

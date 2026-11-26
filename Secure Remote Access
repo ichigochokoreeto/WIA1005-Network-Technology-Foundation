@@ -1,0 +1,42 @@
+1. Telnet Operation
+  - You might not always have direct access to your switch when you need to configure it. 
+  - You need to be able to access it remotely and it is imperative that your access is secure. 
+  - This topic discusses how to configure Secure Shell (SSH) for remote access.
+  - Telnet uses TCP port 23. 
+  - It is an older protocol that uses unsecure plaintext transmission of both the login authentication (username and password) and the data transmitted between the communicating devices. 
+  - A threat actor can monitor packets using Wireshark. 
+  - For example, in the figure the threat actor captured the username admin and password ccna from a Telnet session.
+
+2. SSH Operation
+  - Secure Shell (SSH) is a secure protocol that uses TCP port 22. 
+  - Example of SSH client: PuTTy, is used to connect to an SSH server.
+  - It provides a secure (encrypted) management connection to a remote device. 
+  - SSH should replace Telnet for management connections. 
+  - SSH provides security for remote connections by providing strong encryption when a device is authenticated (username and password) and also for the transmitted data between the communicating devices.
+  - For example, the figure shows a Wireshark capture of an SSH session. 
+  - The threat actor can track the session using the IP address of the administrator device. 
+  - However, unlike Telnet, with SSH the username and password are encrypted.
+
+3. Verify the Switch Suppports SSH
+  S1# show version
+
+4. Configure SSH
+  S1# show ip ssh
+  S1(config)# ip domain-name [domain name such as cisco.com]
+  S1(config)# crypto key generate rsa
+  How many bits in the modulus [512]: 1024
+  S1(config)# username [username such as admin] secret [password such as ccna]
+  S1(config)# line vty 0 15
+  S1(config-line)# transport input ssh
+  S1(config-line)# login local
+  S1(config-line)# exit
+  S1(config)# ip ssh version 2
+
+5. Verify SSH is operational
+  Login as: admin
+  Using keyboard-interactive
+  Authentication.
+  Password: ccna
+  S1> enable
+  Password:
+  S1# show ip ssh

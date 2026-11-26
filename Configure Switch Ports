@@ -1,0 +1,32 @@
+1. Duplex Communication
+  - Full-duplex communication increases bandwidth efficiency by allowing both ends of a connection to transmit and receive data simultaneously. 
+  - This is also known as bidirectional communication and it requires microsegmentation. 
+  - A microsegmented LAN is created when a switch port has only one device connected and is operating in full-duplex mode. 
+  - There is no collision domain associated with a switch port operating in full-duplex mode.
+
+2. Configure Switch Ports at the Physical Layer
+  S1# configure terminal
+  S1(config)# interface FastEthernet 0/1
+  S1(config-if)# duplex full
+  S1(config-if)# speed 100
+  S1(config-if)# end
+  S1# copy running-config startup-config
+
+3. Auto-MDIX
+  - When auto-MDIX is enabled, the interface automatically detects the required cable connection type (straight-through or crossover) and configures the connection appropriately. 
+  - When connecting to switches without the auto-MDIX feature, straight-through cables must be used to connect to devices such as servers, workstations, or routers. 
+  - Crossover cables must be used to connect to other switches or repeaters.
+  - With auto-MDIX enabled, either type of cable can be used to connect to other devices, and the interface automatically adjusts to communicate successfully.
+  - S1(config-if)# mdix auto
+  - S1# show controllers ethernet-controller fa0/1 phy | include MDIX
+
+4. Switch Verification Commands
+  S1# show interfaces [interface-id: like fastEthernet 0/18]
+  S1# show startup-config
+  S1# show running-config
+  S1# show flash
+  S1# show version
+  S1# show history
+  S1# show ip interface [interface-id]
+  S1# show ipv6 interface [interface-id]
+  S1# show mac-address-table OR S1# show mac address-table
